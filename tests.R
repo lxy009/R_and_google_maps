@@ -13,7 +13,7 @@ paste(paste("Test",seq(4)),c("distance matrix unit is km",
                       "distance matrix was turned into R matrix correctly"),test_res,sep=" - ")
 
 #test google_maps_distance
-your_api_key = 'AIzaSyCRWTjF0XcKykk_eLgbLG5J0MvDSOb90Y0'
+your_api_key = ''
 #test 1 - correct http request
 r <- google_maps_distance(origin = c('Vancouver BC','Seattle'), 
                           destination = c('San Francisco','Victoria BC'),
