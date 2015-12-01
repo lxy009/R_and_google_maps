@@ -13,15 +13,20 @@ paste(paste("Test",seq(4)),c("distance matrix unit is km",
                       "distance matrix was turned into R matrix correctly"),test_res,sep=" - ")
 
 #test google_maps_distance
+your_api_key = 'AIzaSyCRWTjF0XcKykk_eLgbLG5J0MvDSOb90Y0'
 #test 1 - correct http request
-your_api_key = ''
 r <- google_maps_distance(origin = c('Vancouver BC','Seattle'), 
                           destination = c('San Francisco','Victoria BC'),
                           api_key = your_api_key)
 substr(r$url,1,135) == "https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver%2BBC%7CSeattle&destinations=San%2BFrancisco%7CVictoria%2BBC&"
 #test 2 - dumb key should through message that API key is invalid
 try(google_maps_distance(origin = 'Dallas TX', destination = 'Austin, TX', api_key = 'duh'))
-trimws(strsplit(x,"\n")[[1]][2]) == 'The provided API key is invalid.'
-
+trimws(strsplit(geterrmessage(),"\n")[[1]][2]) == 'The provided API key is invalid.'
+#test 3 - test traffic model
+r <- google_maps_distance(origin = 'MCO Orlando Airport', 
+                          destination = 'North, 4600 World Dr, Orlando, FL 32830',
+                          departure_time = round(as.numeric(as.POSIXct(Sys.time())) + 24*60*60,0),
+                          api_key = your_api_key)
+ncol(fromJSON(txt = content(r,'text'))$rows[1,][[1]]) == 4
 
 
