@@ -9,8 +9,8 @@ library(jsonlite)
 # resp_type is default to json, can also be xml
 # mode defaults to driving and should correspond to a valid input for google maps: driving, walking, bicycling, transit
 # transit_mode is only utilized if mode = 'transit'. possible values: bus, subway, train, tram, rail. default is bus
-# depature time must be in the future. it is in UNIX time, seconds since midnight 1970-01-01 UTC, OR the string value 'now'
-# traffic model is only utilized if mode = 'driving' and depature time is NOT null
+# departure time must be in the future. it is in UNIX time, seconds since midnight 1970-01-01 UTC, OR the string value 'now'
+# traffic model is only utilized if mode = 'driving' and departure time is NOT null
 #
 # function will break if resp_type is not xml or json
 # function will create url query with correct syntax for origin and destination
@@ -42,19 +42,19 @@ google_maps_distance <- function(origin,destination,api_key,resp_type = 'json',m
   if(mode == 'transit'){
     query_list <- append(query_list, list('transit_mode' = transit_mode))
   }else{
-    if(mode == 'driving' & !is.null(depature_time)){
+    if(mode == 'driving' & !is.null(departure_time)){
       #make sure time is in the future or now
-      if(is.character(depature_time)){
-        if(depature_time == 'now'){
+      if(is.character(departure_time)){
+        if(departure_time == 'now'){
           query_list <- append(query_list, list('departure_time' = departure_time, 'traffic_model' = traffic_model))
         }else{
-          stop(paste("Depature time can only except string value of 'now', not",departure_time))
+          stop(paste("departure time can only except string value of 'now', not",departure_time))
         }
       }else{
-        if(depature_time > as.numeric(Sys.time())){
+        if(departure_time > as.numeric(Sys.time())){
           query_list <- append(query_list, list('departure_time' = departure_time, 'traffic_model' = traffic_model))  
         }else{
-          stop(paste('Depature time',as.POSIXct(departure_time),'is not in the future'))
+          stop(paste('Departure time',as.POSIXct(departure_time),'is not in the future'))
         }
       } 
     }
