@@ -82,7 +82,7 @@ google_maps_distance <- function(origin,destination,api_key,resp_type = 'json',m
 #  attribute 'unit' is attached to each matrix to denote unit of values
 #  THIS DOES NOT EXTRACT DURATION_IN_TRAFFIC AT THIS POINT
 parse_google_maps_distance_matrix <- function(x){
-  x <- fromJSON(txt = x)
+  x <- fromJSON(txt = content(x,'text'))
   
   dests <- x$destination_addresses
   origs <- x$origin_addresses

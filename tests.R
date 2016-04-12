@@ -1,16 +1,17 @@
 
 #test parse_google_maps_distance_matrix
-load('test01.RData')
-x <- parse_google_maps_distance_matrix(to_save)
-test_res <- c(attr(x$distance_matrix,'unit') == 'km', 
-t2 <-attr(x$duration_matrix,'unit') == 'sec', 
-all(as.matrix(x$duration_matrix) ==  matrix(c(53827,44740,11629,17268),2,2)),
-all(as.matrix(x$distance_matrix) ==  matrix(c(1528711,1299998,114493,296820),2,2))
-)
-paste(paste("Test",seq(4)),c("distance matrix unit is km",
-                      "duration matrix unit is sec",
-                      "duration matrix was turned into R matrix correctly",
-                      "distance matrix was turned into R matrix correctly"),test_res,sep=" - ")
+# THIS TEST IS BAD!!! to_save is not the 'response' output from google_maps_distance()
+# load('test01.RData')
+# x <- parse_google_maps_distance_matrix(to_save)
+# test_res <- c(attr(x$distance_matrix,'unit') == 'km', 
+# t2 <-attr(x$duration_matrix,'unit') == 'sec', 
+# all(as.matrix(x$duration_matrix) ==  matrix(c(53827,44740,11629,17268),2,2)),
+# all(as.matrix(x$distance_matrix) ==  matrix(c(1528711,1299998,114493,296820),2,2))
+# )
+# paste(paste("Test",seq(4)),c("distance matrix unit is km",
+#                       "duration matrix unit is sec",
+#                       "duration matrix was turned into R matrix correctly",
+#                       "distance matrix was turned into R matrix correctly"),test_res,sep=" - ")
 
 #test google_maps_distance
 your_api_key = ''
